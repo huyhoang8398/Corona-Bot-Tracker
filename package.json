@@ -12,5 +12,8 @@
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
     "request": "^2.88.2",
     "winston": "^3.2.1"
+  },
+  "engines": {
+    "node": "12.16.1"
   }
 }
