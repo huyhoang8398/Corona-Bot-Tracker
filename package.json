@@ -4,6 +4,7 @@
   "description": "A bot for tracking corona virus",
   "main": "bot.js",
   "scripts": {
+    "postinstall": "npm run build",
     "start": "node bot.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
