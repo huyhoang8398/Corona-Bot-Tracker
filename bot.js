@@ -76,13 +76,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'bald':
                 bot.sendMessage({
                     to: channelID,
-                    message: '╭∩╮( ° ͜ʖ͡°)╭∩╮ ' + '<@371660303672541197'
+                    message: '╭∩╮( ° ͜ʖ͡°)╭∩╮ ' + '<@371660303672541197>'
                 })
                 break;
             case 'dota':
                 bot.sendMessage({
                     to: channelID,
-                    message: 'let\'s play some dota!' + '<@everyone>' + '໒( ” •̀ ᗜ •́ ” )७' 
+                    message: 'let\'s play some dota!  ' + '@everyone' + '  ໒( ” •̀ ᗜ •́ ” )७' 
                 })
                 break;
         }
