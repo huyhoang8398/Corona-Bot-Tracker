@@ -7,84 +7,84 @@ const Api = 'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
-    colorize: true
+  colorize: true
 });
 logger.level = 'debug';
 // Initialize Discord Bot
 var bot = new Discord.Client({
   token: process.env.API_TOKEN,
- // token: auth.token,
+  // token: auth.token,
   autorun: true
 });
 
 bot.on('ready', function (evt) {
-    logger.info('Connected');
-    logger.info('Logged in as: ');
-    logger.info(bot.username + ' - (' + bot.id + ')');
+  logger.info('Connected');
+  logger.info('Logged in as: ');
+  logger.info(bot.username + ' - (' + bot.id + ')');
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
-    // Our bot needs to know if it will execute a command
-    // It will listen for messages that will start with `!`
-    if (message.substring(0, 1) == '!') {
-        var args = message.substring(1).split(' ');
-        var cmd = args[0];
+  // Our bot needs to know if it will execute a command
+  // It will listen for messages that will start with `!`
+  if (message.substring(0, 1) == '!') {
+    var args = message.substring(1).split(' ');
+    var cmd = args[0];
 
-        args = args.splice(1);
-        switch (cmd) {
-            // !ping
-            case 'ping':
-                bot.sendMessage({
-                    to: channelID,
-                    message: 'Pong!'
-                });
-                break;
-            // Just add any case commands if you want to..
-            case 'corona':
-                Request({
-                    url: Api,
-                    method: 'GET',
-                    json: true,
-                    gzip: true,
-                }, (err, res, body) => {
-                    var stats = {
-                        confirmed: 0,
-                        deaths: 0,
-                        recovered: 0
-                    };
-                    body.features.forEach(obj => {
-                        stats.recovered += obj.attributes.recovered;
-                        stats.confirmed += obj.attributes.confirmed;
-                        stats.deaths += obj.attributes.deaths;
-                    });
-                    console.log(stats.recovered);
-                    console.log(stats.confirmed);
-                    console.log(stats.deaths);
-                    bot.sendMessage({
-                        to: channelID,
-                        message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + stats.confirmed + '\n' + '\n'
-                            + ':skull:' + ' ' + 'Deaths: ' + stats.deaths + '\n' + '\n' +
-                            ':repeat:' + ' ' + 'Recovered: ' + stats.recovered
-                    })
-                })
-                break;
-            case 'nlag':
-                bot.sendMessage({
-                    to: channelID,
-                    message: '( ° ͜ʖ͡°)╭∩╮ ' + '<@343101922405777408>'
-                })
-                break;
-            case 'bald':
-                bot.sendMessage({
-                    to: channelID,
-                    message: '╭∩╮( ° ͜ʖ͡°)╭∩╮ ' + '<@371660303672541197>'
-                })
-                break;
-            case 'dota':
-                bot.sendMessage({
-                    to: channelID,
-                    message: 'let\'s play some dota!  ' + '@everyone' + '  ໒( ” •̀ ᗜ •́ ” )७' 
-                })
-                break;
-        }
+    args = args.splice(1);
+    switch (cmd) {
+      // !ping
+      case 'ping':
+        bot.sendMessage({
+          to: channelID,
+          message: 'Pong!'
+        });
+        break;
+      // Just add any case commands if you want to..
+      case 'corona':
+        Request({
+          url: Api,
+          method: 'GET',
+          json: true,
+          gzip: true,
+        }, (err, res, body) => {
+          var stats = {
+            confirmed: 0,
+            deaths: 0,
+            recovered: 0
+          };
+          body.features.forEach(obj => {
+            stats.recovered += obj.attributes.recovered;
+            stats.confirmed += obj.attributes.confirmed;
+            stats.deaths += obj.attributes.deaths;
+          });
+          console.log(stats.recovered);
+          console.log(stats.confirmed);
+          console.log(stats.deaths);
+          bot.sendMessage({
+            to: channelID,
+            message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + stats.confirmed + '\n' + '\n'
+              + ':skull:' + ' ' + 'Deaths: ' + stats.deaths + '\n' + '\n' +
+              ':repeat:' + ' ' + 'Recovered: ' + stats.recovered
+          })
+        })
+        break;
+      case 'nlag':
+        bot.sendMessage({
+          to: channelID,
+          message: '( ° ͜ʖ͡°)╭∩╮ ' + '<@343101922405777408>'
+        })
+        break;
+      case 'bald':
+        bot.sendMessage({
+          to: channelID,
+          message: '╭∩╮( ° ͜ʖ͡°)╭∩╮ ' + '<@371660303672541197>'
+        })
+        break;
+      case 'dota':
+        bot.sendMessage({
+          to: channelID,
+          message: 'let\'s play some dota!  ' + '@everyone' + '  ໒( ” •̀ ᗜ •́ ” )७'
+        })
+        break;
     }
+  }
 });
