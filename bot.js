@@ -70,7 +70,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             case 'nlag':
                 bot.sendMessage({
                     to: channelID,
-                    message: 'Fuck ' + '<@343101922405777408>'
+                    message: '( ° ͜ʖ͡°)╭∩╮ ' + '<@343101922405777408>'
                 })
                 break;
         }
