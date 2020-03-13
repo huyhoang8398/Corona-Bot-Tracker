@@ -65,7 +65,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' + '\n' +
             ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' + '\n' +
             ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
-            + ':timer:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
+            ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
         })
         break;
       case 'nlag':
