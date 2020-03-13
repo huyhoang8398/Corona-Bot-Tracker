@@ -40,6 +40,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         break;
       // Just add any case commands if you want to..
       case 'corona':
+        var body = '';
         var req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
 
         req.headers({
@@ -50,20 +51,20 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         
         req.end(function (res) {
           if (res.error) throw new Error(res.error);
-          res=JSON.parse(res.body);
+          body=JSON.parse(res.body);
 
-          console.log(res);
-          console.log(typeof(res));
+          // console.log(res);
+          // console.log(typeof(res));
         });
 
         bot.sendMessage({
           to: channelID,
-          message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + res.total_cases + '\n' + '\n'
-            + ':skull:' + ' ' + 'Deaths: ' + res.total_deaths + '\n' + '\n' +
-            ':repeat:' + ' ' + 'Recovered: ' + res.total_recovered + '\n' + '\n' +
-            ':mask:' + ' ' + 'New cases: ' + res.new_cases + '\n' + '\n' + 
-            ':skull_crossbones:' + ' ' + 'New Deaths: ' + res.new_deaths + '\n' + '\n' +
-            + ':date:' + ' ' + 'Statistic taken at: ' + res.statistic_taken_at
+          message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' + '\n'
+            + ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' + '\n' +
+            ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' + '\n' +
+            ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' + '\n' + 
+            ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
+            + ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
         })
         break;
       case 'nlag':
