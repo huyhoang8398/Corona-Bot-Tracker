@@ -2,7 +2,7 @@ const Discord = require('discord.io');
 const logger = require('winston');
 const Request = require('request');
 const https = require('https')
-var unirest = require("unirest");
+var unirest = require('unirest');
 
 var body = '';
 
@@ -48,25 +48,24 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
           "x-rapidapi-key": process.env.apiKey
         });
-        
-        
+
         req.end(function (res) {
           if (res.error) throw new Error(res.error);
-          body=JSON.parse(res.body);
+          body = JSON.parse(res.body);
           return body;
           // console.log(res.body);
           // console.log(typeof(res));
         });
         console.log(body);
-        console.log(typeof(body));
+        console.log(typeof (body));
         bot.sendMessage({
-        to: channelID,
-        message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' + '\n'
-          + ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' + '\n' +
-          ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' + '\n' +
-          ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' + '\n' + 
-          ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
-          + ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
+          to: channelID,
+          message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' + '\n'
+            + ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' + '\n' +
+            ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' + '\n' +
+            ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' + '\n' +
+            ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
+            + ':timer:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
         })
         break;
       case 'nlag':
