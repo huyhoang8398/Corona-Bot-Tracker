@@ -52,20 +52,20 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         req.end(function (res) {
           if (res.error) throw new Error(res.error);
           body=JSON.parse(res.body);
-          console.log(body);
-          console.log(typeof(body));
           return body;
           // console.log(res.body);
           // console.log(typeof(res));
         });
-          bot.sendMessage({
-          to: channelID,
-          message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' + '\n'
-            + ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' + '\n' +
-            ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' + '\n' +
-            ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' + '\n' + 
-            ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
-            + ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
+        console.log(body);
+        console.log(typeof(body));
+        bot.sendMessage({
+        to: channelID,
+        message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' + '\n'
+          + ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' + '\n' +
+          ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' + '\n' +
+          ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' + '\n' + 
+          ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
+          + ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
         })
         break;
       case 'nlag':
