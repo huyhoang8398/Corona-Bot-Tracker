@@ -52,8 +52,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         req.end(function (res) {
           if (res.error) throw new Error(res.error);
           body=JSON.parse(res.body);
-          resolve(body);
-          // console.log(res);
+          console.log(res.body);
           // console.log(typeof(res));
         });
         console.log(body);
