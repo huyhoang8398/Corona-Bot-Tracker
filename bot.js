@@ -1,8 +1,51 @@
 const Discord = require('discord.io');
 const logger = require('winston');
 const Request = require('request');
+const https = require('https')
 
-const Api = 'https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/ncov_cases/FeatureServer/1/query?f=json&outStatistics=%5B%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Confirmed%22%2C%22outStatisticFieldName%22%3A%22confirmed%22%7D%2C%20%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Deaths%22%2C%22outStatisticFieldName%22%3A%22deaths%22%7D%2C%20%7B%22statisticType%22%3A%22sum%22%2C%22onStatisticField%22%3A%22Recovered%22%2C%22outStatisticFieldName%22%3A%22recovered%22%7D%5D';
+const apiCaseOption = {
+  hostname: 'apigw.nubentos.com',
+  path: '/t/nubentos.com/ncovapi/1.0.0/cases',
+  port: 443,
+  method: 'GET',
+  headers: {
+    Accept: "application/json",
+    Authorization: process.evn.apiKey
+  }
+}
+
+const apiSuspectedOption = {
+  hostname: 'apigw.nubentos.com',
+  path: '/t/nubentos.com/ncovapi/1.0.0/cases/suspected',
+  port: 443,
+  method: 'GET',
+  headers: {
+    Accept: "application/json",
+    Authorization: process.evn.apiKey
+  }
+}
+
+const apiDeathOption = {
+  hostname: 'apigw.nubentos.com',
+  path: '/t/nubentos.com/ncovapi/1.0.0/deaths',
+  port: 443,
+  method: 'GET',
+  headers: {
+    Accept: "application/json",
+    Authorization: process.evn.apiKey
+  }
+}
+
+const apiRecoveredOption = {
+  hostname: 'apigw.nubentos.com',
+  path: '/t/nubentos.com/ncovapi/1.0.0/recovered',
+  port: 443,
+  method: 'GET',
+  headers: {
+    Accept: "application/json",
+    Authorization: process.evn.apiKey
+  }
+}
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -40,31 +83,74 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         break;
       // Just add any case commands if you want to..
       case 'corona':
-        Request({
-          url: Api,
-          method: 'GET',
-          json: true,
-          gzip: true,
-        }, (err, res, body) => {
-          var stats = {
-            confirmed: 0,
-            deaths: 0,
-            recovered: 0
-          };
-          body.features.forEach(obj => {
-            stats.recovered += obj.attributes.recovered;
-            stats.confirmed += obj.attributes.confirmed;
-            stats.deaths += obj.attributes.deaths;
+
+        https.get(apiCaseOption, (response) => {
+
+          var resultCase = ''
+          response.on('data', function (chunk) {
+            resultCase += chunk;
           });
-          console.log(stats.recovered);
-          console.log(stats.confirmed);
-          console.log(stats.deaths);
-          bot.sendMessage({
-            to: channelID,
-            message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + stats.confirmed + '\n' + '\n'
-              + ':skull:' + ' ' + 'Deaths: ' + stats.deaths + '\n' + '\n' +
-              ':repeat:' + ' ' + 'Recovered: ' + stats.recovered
-          })
+
+          response.on('end', function () {
+            resultCase = JSON.parse(resultCase);
+            // console.log(typeof(resultCase));
+            console.log(resultCase[0].cases);
+          });
+
+        });
+
+        https.get(apiDeathOption, (response) => {
+
+          var resultDeath = ''
+          response.on('data', function (chunk) {
+            resultDeath += chunk;
+          });
+
+          response.on('end', function () {
+            resultDeath = JSON.parse(resultDeath);
+
+            console.log(resultDeath[0].data);
+          });
+
+        });
+
+        https.get(apiRecoveredOption, (response) => {
+
+          var resultRecovered = ''
+          response.on('data', function (chunk) {
+            resultRecovered += chunk;
+          });
+
+          response.on('end', function () {
+            resultRecovered = JSON.parse(resultRecovered);
+
+            console.log(resultRecovered[0].data);
+          });
+
+        });
+
+        https.get(apiSuspectedOption, (response) => {
+
+          var resultSuspected = ''
+          response.on('data', function (chunk) {
+            resultSuspected += chunk;
+          });
+
+          response.on('end', function () {
+            resultSuspected = JSON.parse(resultSuspected);
+
+            console.log(resultSuspected[0].data);
+          });
+
+        });
+
+
+        bot.sendMessage({
+          to: channelID,
+          message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + resultCase[0].cases + '\n' + '\n'
+            + ':mask:' + ' ' + 'Suspected: ' + resultSuspected[0].data + '\n' + '\n'
+            + ':skull:' + ' ' + 'Deaths: ' + resultDeath[0].data + '\n' + '\n' +
+            ':repeat:' + ' ' + 'Recovered: ' + resultRecovered[0].data
         })
         break;
       case 'nlag':
