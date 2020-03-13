@@ -56,13 +56,15 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           console.log(typeof(res));
         });
 
-        // bot.sendMessage({
-        //   to: channelID,
-        //   message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + outputCase + '\n' + '\n'
-        //     + ':mask:' + ' ' + 'Suspected: ' + outputSuspec + '\n' + '\n'
-        //     + ':skull:' + ' ' + 'Deaths: ' + outputDeath + '\n' + '\n' +
-        //     ':repeat:' + ' ' + 'Recovered: ' + outputRecover
-        // })
+        bot.sendMessage({
+          to: channelID,
+          message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + res.total_cases + '\n' + '\n'
+            + ':skull:' + ' ' + 'Deaths: ' + res.total_deaths + '\n' + '\n' +
+            ':repeat:' + ' ' + 'Recovered: ' + res.total_recovered + '\n' + '\n' +
+            ':mask:' + ' ' + 'New cases: ' + res.new_cases + '\n' + '\n' + 
+            ':skull_crossbones:' + ' ' + 'New Deaths: ' + res.new_deaths + '\n' + '\n' +
+            + ':date:' + ' ' + 'Statistic taken at: ' + res.statistic_taken_at
+        })
         break;
       case 'nlag':
         bot.sendMessage({
