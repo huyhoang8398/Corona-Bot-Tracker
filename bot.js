@@ -155,7 +155,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         //     console.log(outputSuspec);
         //   });
 
-        });
+        // });
 
 
         bot.sendMessage({
