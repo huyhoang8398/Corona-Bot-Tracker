@@ -50,9 +50,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         
         req.end(function (res) {
           if (res.error) throw new Error(res.error);
-        
-          console.log(res.body);
-          console.log(typeof(res.body));
+          res=JSON.parse(res.body);
+
+          console.log(res);
+          console.log(typeof(res));
         });
 
         // bot.sendMessage({
