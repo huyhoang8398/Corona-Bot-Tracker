@@ -2,52 +2,7 @@ const Discord = require('discord.io');
 const logger = require('winston');
 const Request = require('request');
 const https = require('https')
-
-console.log(process.env.BEAR + ' ' + process.env.apiKey)
-
-const apiCaseOption = {
-  hostname: 'apigw.nubentos.com',
-  path: '/t/nubentos.com/ncovapi/1.0.0/cases',
-  port: 443,
-  method: 'GET',
-  headers: {
-    Accept: "application/json",
-    Authorization: process.env.BEAR + ' ' + process.env.apiKey
-  }
-}
-
-const apiSuspectedOption = {
-  hostname: 'apigw.nubentos.com',
-  path: '/t/nubentos.com/ncovapi/1.0.0/cases/suspected',
-  port: 443,
-  method: 'GET',
-  headers: {
-    Accept: "application/json",
-    Authorization: process.env.BEAR + ' ' + process.env.apiKey
-  }
-}
-
-const apiDeathOption = {
-  hostname: 'apigw.nubentos.com',
-  path: '/t/nubentos.com/ncovapi/1.0.0/deaths',
-  port: 443,
-  method: 'GET',
-  headers: {
-    Accept: "application/json",
-    Authorization: process.env.BEAR + ' ' + process.env.apiKey
-  }
-}
-
-const apiRecoveredOption = {
-  hostname: 'apigw.nubentos.com',
-  path: '/t/nubentos.com/ncovapi/1.0.0/recovered',
-  port: 443,
-  method: 'GET',
-  headers: {
-    Accept: "application/json",
-    Authorization: process.env.BEAR + ' ' + process.env.apiKey
-  }
-}
+var unirest = require("unirest");
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -85,76 +40,19 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         break;
       // Just add any case commands if you want to..
       case 'corona':
-        var outputCase = '';
-        var outputRecover = '';
-        var outputDeath = '';
-        var outputSuspec = '';
+        var req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/masks.php");
 
-        https.get(apiCaseOption, (response) => {
-          var resultCase = '';
-
-          response.on('data', function (chunk) {
-            resultCase += chunk;
-          });
-
-          response.on('end', function () {
-            resultCase = JSON.parse(resultCase);
-            // console.log(typeof(resultCase));
-            console.log(resultCase);
-            // outputCase = resultCase[0].cases;
-            // console.log(outputCase);
-          });
-
+        req.headers({
+          "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
+          "x-rapidapi-key": process.env.apiKey
         });
-
-        https.get(apiDeathOption, (response) => {
-          var resultDeath = '';
-          response.on('data', function (chunk) {
-            resultDeath += chunk;
-          });
-
-          response.on('end', function () {
-            resultDeath = JSON.parse(resultDeath);
-
-            console.log(resultDeath);
-            // outputDeath = resultDeath[0].data;
-            // console.log(outputDeath);
-          });
-
+        
+        
+        req.end(function (res) {
+          if (res.error) throw new Error(res.error);
+        
+          console.log(res.body);
         });
-
-        https.get(apiRecoveredOption, (response) => {
-          var resultRecovered = '';
-          response.on('data', function (chunk) {
-            resultRecovered += chunk;
-          });
-
-          response.on('end', function () {
-            resultRecovered = JSON.parse(resultRecovered);
-
-            console.log(resultRecovered);
-            // outputRecover = resultRecovered[0].data;
-            // console.log(outputRecover);
-          });
-
-        });
-
-        https.get(apiSuspectedOption, (response) => {
-          var resultSuspected = '';
-          response.on('data', function (chunk) {
-            resultSuspected += chunk;
-          });
-
-          response.on('end', function () {
-            resultSuspected = JSON.parse(resultSuspected);
-
-            console.log(resultSuspected);
-            // outputSuspec = resultSuspected[0].data;
-            // console.log(outputSuspec);
-          });
-
-        });
-
 
         // bot.sendMessage({
         //   to: channelID,
