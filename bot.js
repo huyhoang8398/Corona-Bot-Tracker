@@ -98,8 +98,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           response.on('end', function () {
             resultCase = JSON.parse(resultCase);
             // console.log(typeof(resultCase));
-            console.log(resultCase[0].cases);
-            outputCase = resultCase[0].cases;
+            console.log(resultCase);
+            // outputCase = resultCase[0].cases;
             // console.log(outputCase);
           });
 
@@ -114,7 +114,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           response.on('end', function () {
             resultDeath = JSON.parse(resultDeath);
 
-            console.log(resultDeath[0].data);
+            console.log(resultDeath);
             outputDeath = resultDeath[0].data;
             // console.log(outputDeath);
           });
@@ -130,7 +130,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           response.on('end', function () {
             resultRecovered = JSON.parse(resultRecovered);
 
-            console.log(resultRecovered[0].data);
+            console.log(resultRecovered);
             outputRecover = resultRecovered[0].data;
             // console.log(outputRecover);
           });
@@ -146,7 +146,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           response.on('end', function () {
             resultSuspected = JSON.parse(resultSuspected);
 
-            console.log(resultSuspected[0].data);
+            console.log(resultSuspected);
             outputSuspec = resultSuspected[0].data;
             // console.log(outputSuspec);
           });
