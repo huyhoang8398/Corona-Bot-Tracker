@@ -77,7 +77,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       case 'bald':
         bot.sendMessage({
           to: channelID,
-          message: '╭∩╮( ° ͜ʖ͡°)╭∩╮ ' + '<@371660303672541197>'
+//          message: '╭∩╮( ° ͜ʖ͡°)╭∩╮ ' + '<@371660303672541197>'
+            message: 'https://media.discordapp.net/attachments/538397759741362179/688128156174909568/69424511_2564724586917511_6843079252783398912_n.png?width=759&height=566'
         })
         break;
       case 'dota':
