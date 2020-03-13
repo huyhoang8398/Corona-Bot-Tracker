@@ -83,10 +83,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         break;
       // Just add any case commands if you want to..
       case 'corona':
-        var resultCase = ''
-        var resultRecovered = ''
-        var resultDeath = ''
-        var resultSuspected = ''
+        var resultCase = '';
+        var resultRecovered = '';
+        var resultDeath = '';
+        var resultSuspected = '';
 
         https.get(apiCaseOption, (response) => {
 
@@ -145,13 +145,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
 
 
-        bot.sendMessage({
-          to: channelID,
-          message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + resultCase[0].cases + '\n' + '\n'
-            + ':mask:' + ' ' + 'Suspected: ' + resultSuspected[0].data + '\n' + '\n'
-            + ':skull:' + ' ' + 'Deaths: ' + resultDeath[0].data + '\n' + '\n' +
-            ':repeat:' + ' ' + 'Recovered: ' + resultRecovered[0].data
-        })
+        // bot.sendMessage({
+        //   to: channelID,
+        //   message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + resultCase[0].cases + '\n' + '\n'
+        //     + ':mask:' + ' ' + 'Suspected: ' + resultSuspected[0].data + '\n' + '\n'
+        //     + ':skull:' + ' ' + 'Deaths: ' + resultDeath[0].data + '\n' + '\n' +
+        //     ':repeat:' + ' ' + 'Recovered: ' + resultRecovered[0].data
+        // })
         break;
       case 'nlag':
         bot.sendMessage({
