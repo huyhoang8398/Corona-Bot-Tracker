@@ -4,6 +4,8 @@ const Request = require('request');
 const https = require('https')
 var unirest = require("unirest");
 
+var body = '';
+
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
@@ -40,7 +42,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         break;
       // Just add any case commands if you want to..
       case 'corona':
-        var body = '';
         var req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
 
         req.headers({
