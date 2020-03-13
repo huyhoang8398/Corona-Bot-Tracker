@@ -92,6 +92,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           message: 'I immediately regret this decision' + ':cold_face:' 
         })
         break;
+      case 'thanks':
+        bot.sendMessage({
+          to: channelID,
+          message: 'Thank you ' + '@everyone' + ':heart:' + ':heart:' + ':heart:'
+        })
+        break;
     }
   }
 });
