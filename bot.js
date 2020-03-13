@@ -88,6 +88,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         var resultDeath = '';
         var resultSuspected = '';
 
+        var outputCase = '';
+        var outputRecover = '';
+        var outputDeath = '';
+        var outputSuspec = '';
+
         https.get(apiCaseOption, (response) => {
 
           response.on('data', function (chunk) {
@@ -98,6 +103,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             resultCase = JSON.parse(resultCase);
             // console.log(typeof(resultCase));
             console.log(resultCase[0].cases);
+            outputCase = resultCase[0].cases;
           });
 
         });
@@ -112,6 +118,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             resultDeath = JSON.parse(resultDeath);
 
             console.log(resultDeath[0].data);
+            outputDeath = resultDeath[0].data;
           });
 
         });
@@ -126,6 +133,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             resultRecovered = JSON.parse(resultRecovered);
 
             console.log(resultRecovered[0].data);
+            outputRecover = resultRecovered[0].data;
           });
 
         });
@@ -140,18 +148,19 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             resultSuspected = JSON.parse(resultSuspected);
 
             console.log(resultSuspected[0].data);
+            outputSuspec = resultSuspected[0].data;
           });
 
         });
 
 
-        // bot.sendMessage({
-        //   to: channelID,
-        //   message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + resultCase[0].cases + '\n' + '\n'
-        //     + ':mask:' + ' ' + 'Suspected: ' + resultSuspected[0].data + '\n' + '\n'
-        //     + ':skull:' + ' ' + 'Deaths: ' + resultDeath[0].data + '\n' + '\n' +
-        //     ':repeat:' + ' ' + 'Recovered: ' + resultRecovered[0].data
-        // })
+        bot.sendMessage({
+          to: channelID,
+          message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + outputCase + '\n' + '\n'
+            + ':mask:' + ' ' + 'Suspected: ' + outputSuspec + '\n' + '\n'
+            + ':skull:' + ' ' + 'Deaths: ' + outputDeath + '\n' + '\n' +
+            ':repeat:' + ' ' + 'Recovered: ' + outputRecover
+        })
         break;
       case 'nlag':
         bot.sendMessage({
