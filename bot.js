@@ -83,10 +83,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         break;
       // Just add any case commands if you want to..
       case 'corona':
+        var resultCase = ''
+        var resultRecovered = ''
+        var resultDeath = ''
+        var resultSuspected = ''
 
         https.get(apiCaseOption, (response) => {
 
-          var resultCase = ''
           response.on('data', function (chunk) {
             resultCase += chunk;
           });
@@ -101,7 +104,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         https.get(apiDeathOption, (response) => {
 
-          var resultDeath = ''
           response.on('data', function (chunk) {
             resultDeath += chunk;
           });
@@ -116,7 +118,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         https.get(apiRecoveredOption, (response) => {
 
-          var resultRecovered = ''
           response.on('data', function (chunk) {
             resultRecovered += chunk;
           });
@@ -131,7 +132,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         https.get(apiSuspectedOption, (response) => {
 
-          var resultSuspected = ''
           response.on('data', function (chunk) {
             resultSuspected += chunk;
           });
