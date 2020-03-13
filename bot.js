@@ -115,7 +115,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             resultDeath = JSON.parse(resultDeath);
 
             console.log(resultDeath);
-            outputDeath = resultDeath[0].data;
+            // outputDeath = resultDeath[0].data;
             // console.log(outputDeath);
           });
 
@@ -131,7 +131,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             resultRecovered = JSON.parse(resultRecovered);
 
             console.log(resultRecovered);
-            outputRecover = resultRecovered[0].data;
+            // outputRecover = resultRecovered[0].data;
             // console.log(outputRecover);
           });
 
@@ -147,7 +147,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             resultSuspected = JSON.parse(resultSuspected);
 
             console.log(resultSuspected);
-            outputSuspec = resultSuspected[0].data;
+            // outputSuspec = resultSuspected[0].data;
             // console.log(outputSuspec);
           });
 
