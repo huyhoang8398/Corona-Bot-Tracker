@@ -56,7 +56,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           // console.log(res);
           // console.log(typeof(res));
         });
-
+        console.log(body);
+        console.log(typeof(body));
         bot.sendMessage({
           to: channelID,
           message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' + '\n'
