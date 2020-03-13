@@ -52,6 +52,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           if (res.error) throw new Error(res.error);
         
           console.log(res.body);
+          console.log(typeof(res.body));
         });
 
         // bot.sendMessage({
