@@ -83,17 +83,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         break;
       // Just add any case commands if you want to..
       case 'corona':
-        var resultCase = '';
-        var resultRecovered = '';
-        var resultDeath = '';
-        var resultSuspected = '';
-
         var outputCase = '';
         var outputRecover = '';
         var outputDeath = '';
         var outputSuspec = '';
 
         https.get(apiCaseOption, (response) => {
+          var resultCase = '';
 
           response.on('data', function (chunk) {
             resultCase += chunk;
@@ -102,15 +98,15 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           response.on('end', function () {
             resultCase = JSON.parse(resultCase);
             // console.log(typeof(resultCase));
-            // console.log(resultCase[0].cases);
+            console.log(resultCase[0].cases);
             outputCase = resultCase[0].cases;
-            console.log(outputCase);
+            // console.log(outputCase);
           });
 
         });
 
         https.get(apiDeathOption, (response) => {
-
+          var resultDeath = '';
           response.on('data', function (chunk) {
             resultDeath += chunk;
           });
@@ -118,15 +114,15 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           response.on('end', function () {
             resultDeath = JSON.parse(resultDeath);
 
-            // console.log(resultDeath[0].data);
+            console.log(resultDeath[0].data);
             outputDeath = resultDeath[0].data;
-            console.log(outputDeath);
+            // console.log(outputDeath);
           });
 
         });
 
         https.get(apiRecoveredOption, (response) => {
-
+          var resultRecovered = '';
           response.on('data', function (chunk) {
             resultRecovered += chunk;
           });
@@ -134,37 +130,37 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           response.on('end', function () {
             resultRecovered = JSON.parse(resultRecovered);
 
-            // console.log(resultRecovered[0].data);
+            console.log(resultRecovered[0].data);
             outputRecover = resultRecovered[0].data;
-            console.log(outputRecover);
+            // console.log(outputRecover);
           });
 
         });
 
-        // https.get(apiSuspectedOption, (response) => {
+        https.get(apiSuspectedOption, (response) => {
+          var resultSuspected = '';
+          response.on('data', function (chunk) {
+            resultSuspected += chunk;
+          });
 
-        //   response.on('data', function (chunk) {
-        //     resultSuspected += chunk;
-        //   });
+          response.on('end', function () {
+            resultSuspected = JSON.parse(resultSuspected);
 
-        //   response.on('end', function () {
-        //     resultSuspected = JSON.parse(resultSuspected);
+            console.log(resultSuspected[0].data);
+            outputSuspec = resultSuspected[0].data;
+            // console.log(outputSuspec);
+          });
 
-        //     // console.log(resultSuspected[0].data);
-        //     outputSuspec = resultSuspected[0].data;
-        //     console.log(outputSuspec);
-        //   });
-
-        // });
+        });
 
 
-        bot.sendMessage({
-          to: channelID,
-          message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + outputCase + '\n' + '\n'
-            + ':mask:' + ' ' + 'Suspected: ' + outputSuspec + '\n' + '\n'
-            + ':skull:' + ' ' + 'Deaths: ' + outputDeath + '\n' + '\n' +
-            ':repeat:' + ' ' + 'Recovered: ' + outputRecover
-        })
+        // bot.sendMessage({
+        //   to: channelID,
+        //   message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + outputCase + '\n' + '\n'
+        //     + ':mask:' + ' ' + 'Suspected: ' + outputSuspec + '\n' + '\n'
+        //     + ':skull:' + ' ' + 'Deaths: ' + outputDeath + '\n' + '\n' +
+        //     ':repeat:' + ' ' + 'Recovered: ' + outputRecover
+        // })
         break;
       case 'nlag':
         bot.sendMessage({
