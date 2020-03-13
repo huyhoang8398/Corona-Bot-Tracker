@@ -10,7 +10,7 @@ const apiCaseOption = {
   method: 'GET',
   headers: {
     Accept: "application/json",
-    Authorization: process.evn.apiKey
+    Authorization: process.env.apiKey
   }
 }
 
@@ -21,7 +21,7 @@ const apiSuspectedOption = {
   method: 'GET',
   headers: {
     Accept: "application/json",
-    Authorization: process.evn.apiKey
+    Authorization: process.env.apiKey
   }
 }
 
@@ -32,7 +32,7 @@ const apiDeathOption = {
   method: 'GET',
   headers: {
     Accept: "application/json",
-    Authorization: process.evn.apiKey
+    Authorization: process.env.apiKey
   }
 }
 
@@ -43,7 +43,7 @@ const apiRecoveredOption = {
   method: 'GET',
   headers: {
     Accept: "application/json",
-    Authorization: process.evn.apiKey
+    Authorization: process.env.apiKey
   }
 }
 
