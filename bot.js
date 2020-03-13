@@ -3,6 +3,8 @@ const logger = require('winston');
 const Request = require('request');
 const https = require('https')
 
+console.log(process.env.BEAR + ' ' + process.env.apiKey)
+
 const apiCaseOption = {
   hostname: 'apigw.nubentos.com',
   path: '/t/nubentos.com/ncovapi/1.0.0/cases',
@@ -10,7 +12,7 @@ const apiCaseOption = {
   method: 'GET',
   headers: {
     Accept: "application/json",
-    Authorization: process.env.apiKey
+    Authorization: process.env.BEAR + ' ' + process.env.apiKey
   }
 }
 
@@ -21,7 +23,7 @@ const apiSuspectedOption = {
   method: 'GET',
   headers: {
     Accept: "application/json",
-    Authorization: process.env.apiKey
+    Authorization: process.env.BEAR + ' ' + process.env.apiKey
   }
 }
 
@@ -32,7 +34,7 @@ const apiDeathOption = {
   method: 'GET',
   headers: {
     Accept: "application/json",
-    Authorization: process.env.apiKey
+    Authorization: process.env.BEAR + ' ' + process.env.apiKey
   }
 }
 
@@ -43,7 +45,7 @@ const apiRecoveredOption = {
   method: 'GET',
   headers: {
     Accept: "application/json",
-    Authorization: process.env.apiKey
+    Authorization: process.env.BEAR + ' ' + process.env.apiKey
   }
 }
 
