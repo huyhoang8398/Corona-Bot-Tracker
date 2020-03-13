@@ -53,11 +53,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           if (res.error) throw new Error(res.error);
           body=JSON.parse(res.body);
           console.log(body);
+          console.log(typeof(body));
           // console.log(res.body);
           // console.log(typeof(res));
         });
-        console.log(typeof(body));
-        bot.sendMessage({
+          bot.sendMessage({
           to: channelID,
           message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' + '\n'
             + ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' + '\n' +
