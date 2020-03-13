@@ -86,6 +86,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           message: 'let\'s play some dota!  ' + '@everyone' + '  ໒( ” •̀ ᗜ •́ ” )७'
         })
         break;
+      case 'regret':
+        bot.sendMessage({
+          to: channelID,
+          message: 'I immediately regret this decision' + ':cold_face:' 
+        })
+        break;
     }
   }
 });
