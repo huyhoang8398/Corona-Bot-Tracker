@@ -40,7 +40,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         break;
       // Just add any case commands if you want to..
       case 'corona':
-        var req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/masks.php");
+        var req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
 
         req.headers({
           "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
