@@ -141,19 +141,19 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         });
 
-        https.get(apiSuspectedOption, (response) => {
+        // https.get(apiSuspectedOption, (response) => {
 
-          response.on('data', function (chunk) {
-            resultSuspected += chunk;
-          });
+        //   response.on('data', function (chunk) {
+        //     resultSuspected += chunk;
+        //   });
 
-          response.on('end', function () {
-            resultSuspected = JSON.parse(resultSuspected);
+        //   response.on('end', function () {
+        //     resultSuspected = JSON.parse(resultSuspected);
 
-            // console.log(resultSuspected[0].data);
-            outputSuspec = resultSuspected[0].data;
-            console.log(outputSuspec);
-          });
+        //     // console.log(resultSuspected[0].data);
+        //     outputSuspec = resultSuspected[0].data;
+        //     console.log(outputSuspec);
+        //   });
 
         });
 
