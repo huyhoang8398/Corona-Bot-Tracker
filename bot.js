@@ -99,6 +99,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           message: 'Thank you ' + '@everyone' + ':heart:' + ':heart:' + ':heart:'
         })
         break;
+      case 'phicong':
+        bot.sendMessage({
+          to: channelID,
+          message: 'stfu ' + '<@425894408714452993>' + ':mask:' 
+        })
     }
   }
 });
