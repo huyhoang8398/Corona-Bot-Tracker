@@ -77,18 +77,20 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         // console.log(typeof (body));
         bot.sendMessage({
           to: channelID,
-          message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' + '\n'
-            + ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' + '\n' +
+          message: 'Current Corona Virus Statistics \n' + '\n' +
+            ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' + '\n' +
+            ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' + '\n' +
             ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' + '\n' +
             ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' + '\n' +
             ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
             '------------------------------------' + '\n' + '\n' +
-            // 'Current Corona Virus Statistics in Vietnam \n' + '\n' +
-            // ':mask:' + ' ' + 'Confirmed: ' + bodyVietnam.countries_stat[12].cases + '\n' + '\n' + 
-            // ':skull:' + ' ' + 'Deaths: ' + bodyVietnam.countries_stat[12].deaths + '\n' + '\n' +
-            // ':repeat:' + ' ' + 'Recovered: ' + bodyVietnam.countries_stat[12].total_recovered + '\n' + '\n' +
-
-
+            'Current Corona Virus Statistics in Vietnam \n' + '\n' +
+            ':mask:' + ' ' + 'Confirmed: ' + bodyVietnam.countries_stat[56].cases + '\n' + '\n' +
+            ':skull:' + ' ' + 'Deaths: ' + bodyVietnam.countries_stat[56].deaths + '\n' + '\n' +
+            ':repeat:' + ' ' + 'Recovered: ' + bodyVietnam.countries_stat[12].total_recovered + '\n' + '\n' +
+            ':mask:' + ' ' + 'New cases: ' + bodyVietnam.countries_stat[12].new_cases + '\n' + '\n' +
+            ':skull_crossbones:' + ' ' + 'New Deaths: ' + bodyVietnam.countries_stat[12].new_deaths + '\n' + '\n' +
+            ':skull_crossbones:' + ' ' + 'Serious Critical: ' + bodyVietnam.countries_stat[12].serious_critical + '\n' + '\n' +
             ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
         })
         break;
