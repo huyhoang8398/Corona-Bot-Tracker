@@ -50,15 +50,17 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         reqByCountry.headers({
           "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
           'Accept': 'application/json',
-          'Content-Type':'application/json',
+          'Content-Type': 'application/json',
           "x-rapidapi-key": process.env.apiKey
         });
         reqByCountry.end(function (res) {
           if (res.error) throw new Error(res.error);
-          bodyVietnam = JSON.parse(res.body);
-          console.log(bodyVietnam.countries_stat[56]);
-          bodyVietnam = bodyVietnam.countries_stat[56];
-          console.log(typeof(bodyVietnam));
+          setTimeout(() => {
+            bodyVietnam = JSON.parse(res.body);
+            console.log(bodyVietnam.countries_stat[56]);
+            bodyVietnam = bodyVietnam.countries_stat[56];
+            console.log(typeof (bodyVietnam));
+          }, 3000);
           return bodyVietnam;
           // console.log(res.body);
         });
@@ -68,13 +70,15 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         req.headers({
           "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
           'Accept': 'application/json',
-          'Content-Type':'application/json',
+          'Content-Type': 'application/json',
           "x-rapidapi-key": process.env.apiKey
         });
 
         req.end(function (res) {
           if (res.error) throw new Error(res.error);
-          body = JSON.parse(res.body);
+          setTimeout(() => {
+            body = JSON.parse(res.body);
+          }, 3000);
           return body;
           // console.log(res.body);
           // console.log(typeof(res));
