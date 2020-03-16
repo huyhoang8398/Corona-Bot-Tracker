@@ -59,8 +59,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           // console.log(bodyVietnam.countries_stat[56]);
           // bodyVietnam = bodyVietnam.countries_stat[56];
           // return bodyVietnam;
-          console.log(res.body.countries_stat[56]);
-          console.log(typeof(res));
+          console.log(res.body);
+          console.log(typeof(res.body));
         });
         // console.log(bodyVietnam);
         // console.log(typeof (bodyVietnam));
