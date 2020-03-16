@@ -1,6 +1,6 @@
 const Discord = require('discord.io');
 const logger = require('winston');
-var unirest = require('unirest');
+const unirest = require('unirest');
 
 var body = '';
 var bodyVietnam = '';
