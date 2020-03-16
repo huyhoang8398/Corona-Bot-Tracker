@@ -49,6 +49,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         reqByCountry.headers({
           "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
+          "Accept": "application/json",
           "x-rapidapi-key": process.env.apiKey
         });
         reqByCountry.end(function (res) {
@@ -64,6 +65,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         req.headers({
           "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
+          "Accept": "application/json",
           "x-rapidapi-key": process.env.apiKey
         });
 
