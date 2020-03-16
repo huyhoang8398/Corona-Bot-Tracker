@@ -49,23 +49,26 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         reqByCountry.headers({
           "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
-          "Accept": "application/json",
+          'Accept': 'application/json',
+          'Content-Type':'application/json',
           "x-rapidapi-key": process.env.apiKey
         });
         reqByCountry.end(function (res) {
           if (res.error) throw new Error(res.error);
-          bodyVietnam = JSON.parse(res.body);
-          console.log(bodyVietnam.countries_stat[56]);
-          bodyVietnam = bodyVietnam.countries_stat[56];
-          return bodyVietnam;
+          // bodyVietnam = JSON.parse(res.body);
+          // console.log(bodyVietnam.countries_stat[56]);
+          // bodyVietnam = bodyVietnam.countries_stat[56];
+          // return bodyVietnam;
           console.log(res.body);
+          console.log(typeof(res));
         });
         // console.log(bodyVietnam);
         // console.log(typeof (bodyVietnam));
 
         req.headers({
           "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
-          "Accept": "application/json",
+          'Accept': 'application/json',
+          'Content-Type':'application/json',
           "x-rapidapi-key": process.env.apiKey
         });
 
@@ -87,13 +90,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' + '\n' +
             ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
             '------------------------------------' + '\n' + '\n' +
-            'Current Corona Virus Statistics in Vietnam \n' + '\n' +
-            ':mask:' + ' ' + 'Confirmed: ' + bodyVietnam.countries_stat[56].cases + '\n' + '\n' +
-            ':skull:' + ' ' + 'Deaths: ' + bodyVietnam.countries_stat[56].deaths + '\n' + '\n' +
-            ':repeat:' + ' ' + 'Recovered: ' + bodyVietnam.countries_stat[12].total_recovered + '\n' + '\n' +
-            ':mask:' + ' ' + 'New cases: ' + bodyVietnam.countries_stat[12].new_cases + '\n' + '\n' +
-            ':skull_crossbones:' + ' ' + 'New Deaths: ' + bodyVietnam.countries_stat[12].new_deaths + '\n' + '\n' +
-            ':skull_crossbones:' + ' ' + 'Serious Critical: ' + bodyVietnam.countries_stat[12].serious_critical + '\n' + '\n' +
+            // 'Current Corona Virus Statistics in Vietnam \n' + '\n' +
+            // ':mask:' + ' ' + 'Confirmed: ' + bodyVietnam.countries_stat[56].cases + '\n' + '\n' +
+            // ':skull:' + ' ' + 'Deaths: ' + bodyVietnam.countries_stat[56].deaths + '\n' + '\n' +
+            // ':repeat:' + ' ' + 'Recovered: ' + bodyVietnam.countries_stat[12].total_recovered + '\n' + '\n' +
+            // ':mask:' + ' ' + 'New cases: ' + bodyVietnam.countries_stat[12].new_cases + '\n' + '\n' +
+            // ':skull_crossbones:' + ' ' + 'New Deaths: ' + bodyVietnam.countries_stat[12].new_deaths + '\n' + '\n' +
+            // ':skull_crossbones:' + ' ' + 'Serious Critical: ' + bodyVietnam.countries_stat[12].serious_critical + '\n' + '\n' +
             ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
         })
         break;
