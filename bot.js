@@ -57,8 +57,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           return bodyVietnam;
           console.log(res.body);
         });
-        console.log(bodyVietnam);
-        console.log(typeof (bodyVietnam));
+        // console.log(bodyVietnam);
+        console.log(bodyVietnam.countries_stat[12]);
+        // console.log(typeof (bodyVietnam));
 
         req.headers({
           "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
@@ -72,8 +73,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           // console.log(res.body);
           // console.log(typeof(res));
         });
-        console.log(body);
-        console.log(typeof (body));
+        // console.log(body);
+        // console.log(typeof (body));
         bot.sendMessage({
           to: channelID,
           message: 'Current Corona Virus Statistics \n' + '\n' + ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' + '\n'
@@ -82,10 +83,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' + '\n' +
             ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
             '------------------------------------' + '\n' + '\n' +
-            'Current Corona Virus Statistics in Vietnam \n' + '\n' +
-            ':mask:' + ' ' + 'Confirmed: ' + bodyVietnam.countries_stat[12].cases + '\n' + '\n' + 
-            ':skull:' + ' ' + 'Deaths: ' + bodyVietnam.countries_stat[12].deaths + '\n' + '\n' +
-            ':repeat:' + ' ' + 'Recovered: ' + bodyVietnam.countries_stat[12].total_recovered + '\n' + '\n' +
+            // 'Current Corona Virus Statistics in Vietnam \n' + '\n' +
+            // ':mask:' + ' ' + 'Confirmed: ' + bodyVietnam.countries_stat[12].cases + '\n' + '\n' + 
+            // ':skull:' + ' ' + 'Deaths: ' + bodyVietnam.countries_stat[12].deaths + '\n' + '\n' +
+            // ':repeat:' + ' ' + 'Recovered: ' + bodyVietnam.countries_stat[12].total_recovered + '\n' + '\n' +
 
 
             ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
