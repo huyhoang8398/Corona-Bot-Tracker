@@ -55,12 +55,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
         reqByCountry.end(function (res) {
           if (res.error) throw new Error(res.error);
-          // bodyVietnam = JSON.parse(res.body);
-          // console.log(bodyVietnam.countries_stat[56]);
-          // bodyVietnam = bodyVietnam.countries_stat[56];
-          // return bodyVietnam;
-          console.log(res.body);
-          console.log(typeof(res.body));
+          bodyVietnam = JSON.parse(res.body);
+          console.log(bodyVietnam.countries_stat[56]);
+          bodyVietnam = bodyVietnam.countries_stat[56];
+          console.log(typeof(bodyVietnam));
+          return bodyVietnam;
+          // console.log(res.body);
         });
         // console.log(bodyVietnam);
         // console.log(typeof (bodyVietnam));
