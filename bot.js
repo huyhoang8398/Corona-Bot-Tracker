@@ -83,9 +83,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
             '------------------------------------' + '\n' + '\n' +
             'Current Corona Virus Statistics in Vietnam \n' + '\n' +
-            ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' + '\n' + 
-            ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' + '\n' +
-            ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' + '\n' +
+            ':mask:' + ' ' + 'Confirmed: ' + bodyVietnam.countries_stat[12].cases + '\n' + '\n' + 
+            ':skull:' + ' ' + 'Deaths: ' + bodyVietnam.countries_stat[12].deaths + '\n' + '\n' +
+            ':repeat:' + ' ' + 'Recovered: ' + bodyVietnam.countries_stat[12].total_recovered + '\n' + '\n' +
 
 
             ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
