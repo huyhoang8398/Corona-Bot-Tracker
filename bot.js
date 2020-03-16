@@ -1,7 +1,5 @@
 const Discord = require('discord.io');
 const logger = require('winston');
-const Request = require('request');
-const https = require('https')
 var unirest = require('unirest');
 
 var body = '';
