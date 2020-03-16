@@ -54,11 +54,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         reqByCountry.end(function (res) {
           if (res.error) throw new Error(res.error);
           bodyVietnam = JSON.parse(res.body);
+          console.log(bodyVietnam.countries_stat[12]);
           return bodyVietnam;
           console.log(res.body);
         });
         // console.log(bodyVietnam);
-        console.log(bodyVietnam.countries_stat[12]);
         // console.log(typeof (bodyVietnam));
 
         req.headers({
