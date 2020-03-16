@@ -85,20 +85,20 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         // console.log(typeof (body));
         bot.sendMessage({
           to: channelID,
-          message: 'Current Corona Virus Statistics \n' + '\n' +
-            ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' + '\n' +
-            ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' + '\n' +
-            ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' + '\n' +
-            ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' + '\n' +
+          message: 'Current Corona Virus Statistics \n' +
+            ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' +
+            ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' +
+            ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' +
+            ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' +
             ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
             '------------------------------------' + '\n' + '\n' +
-            'Current Corona Virus Statistics in Vietnam \n' + '\n' +
-            ':mask:' + ' ' + 'Confirmed: ' + bodyVietnam.cases + '\n' + '\n' +
-            ':skull:' + ' ' + 'Deaths: ' + bodyVietnam.deaths + '\n' + '\n' +
-            ':repeat:' + ' ' + 'Recovered: ' + bodyVietnam.total_recovered + '\n' + '\n' +
-            ':mask:' + ' ' + 'New cases: ' + bodyVietnam.new_cases + '\n' + '\n' +
-            ':skull_crossbones:' + ' ' + 'New Deaths: ' + bodyVietnam.new_deaths + '\n' + '\n' +
-            ':skull_crossbones:' + ' ' + 'Serious Critical: ' + bodyVietnam.serious_critical + '\n' + '\n' +
+            'Current Corona Virus Statistics in Vietnam \n' +
+            ':mask:' + ' ' + 'Confirmed: ' + bodyVietnam.cases + '\n' +
+            ':skull:' + ' ' + 'Deaths: ' + bodyVietnam.deaths + '\n' +
+            ':repeat:' + ' ' + 'Recovered: ' + bodyVietnam.total_recovered + '\n' +
+            ':mask:' + ' ' + 'New cases: ' + bodyVietnam.new_cases + '\n' +
+            ':skull_crossbones:' + ' ' + 'New Deaths: ' + bodyVietnam.new_deaths + '\n' +
+            ':skull_crossbones:' + ' ' + 'Serious Critical: ' + bodyVietnam.serious_critical + '\n' +
             ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
         })
         break;
