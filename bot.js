@@ -55,11 +55,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           .then(res = res.json())
           .then((json) => {
             var statsAll = {
-              confirmed = 0,
-              deaths = 0,
-              recovered = 0,
-              new_cases = 0,
-              new_deaths = 0,
+              confirmed: 0,
+              deaths: 0,
+              recovered: 0,
+              new_cases: 0,
+              new_deaths: 0
             };
             json.forEach(obj => {
               statsAll.recovered += obj.recovered;
