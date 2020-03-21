@@ -5,7 +5,7 @@ const fetch = require('node-fetch');
 
 var body = '';
 var bodyVietnam = '';
-let reqVN = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=VN";
+let url = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=VN";
 let settings = { method: "Get" };
 
 // Configure logger settings
