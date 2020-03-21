@@ -4,9 +4,15 @@ const unirest = require('unirest');
 const fetch = require('node-fetch');
 
 var body = '';
-var bodyVietnam = '';
 let url = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=VN";
+var req = "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php";
 let settings = { method: "Get" };
+let settings2 = {
+  "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
+  "x-rapidapi-key": process.env.apiKey
+};
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -44,24 +50,26 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         break;
       // Just add any case commands if you want to..
       case 'corona':
-        var req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
 
-        req.headers({
-          "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          "x-rapidapi-key": process.env.apiKey
-        });
+        fetch(req, setting2)
+          .then(res = res.json())
+          .then((json) => {
+            var statsAll = {
+              confirmed = 0,
+              deaths = 0,
+              recovered = 0,
+              new_cases = 0,
+              new_deaths = 0,
+            };
+            json.forEach(obj => {
+              statsAll.recovered += obj.recovered;
+              statsAll.confirmed += obj.confirmed;
+              statsAll.deaths += obj.deaths;
+              statsAll.new_cases += obj.new_cases;
+              statsAll.new_deaths += obj.new_deaths;
+            })
+          })
 
-        req.end(function (res) {
-          if (res.error) throw new Error(res.error);
-          setTimeout(() => {
-            body = JSON.parse(res.body);
-          }, 3000);
-          return body;
-          // console.log(res.body);
-          // console.log(typeof(res));
-        });
         fetch(url, settings)
           .then(res => res.json())
           .then((json) => {
