@@ -71,6 +71,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           setTimeout(() => {
             bodyVietnam = JSON.parse(res.body);
           }, 3000);
+          console.log(typeof(bodyVietnam));
+          console.log(bodyVietnam);
           return bodyVietnam;
         });
 
