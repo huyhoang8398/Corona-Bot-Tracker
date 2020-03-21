@@ -1,9 +1,12 @@
 const Discord = require('discord.io');
 const logger = require('winston');
 const unirest = require('unirest');
+const fetch = require('node-fetch');
 
 var body = '';
 var bodyVietnam = '';
+let reqVN = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=VN";
+let settings = { method: "Get" };
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -42,7 +45,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       // Just add any case commands if you want to..
       case 'corona':
         var req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
-        var reqVN = unirest("GET", "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=VN");
 
         req.headers({
           "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
@@ -60,27 +62,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           // console.log(res.body);
           // console.log(typeof(res));
         });
+        fetch(url, settings)
+          .then(res => res.json())
+          .then((json) => {
+            console.log(json);
+          });
 
-        reqVN.headers({
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        });
         
-        reqVN.end(function (res) {
-          if (res.error) throw new Error(res.error);
-          setTimeout(() => {
-            bodyVietnam = JSON.parse(res.body);
-            console.log(bodyVietnam[0]);
-            bodyVietnam = bodyVietnam[0];
-            console.log(typeof (bodyVietnam));
-          }, 3000);
-          console.log(typeof(bodyVietnam));
-          console.log(bodyVietnam[0].confirmed);
-          console.log(bodyVietnam[0].deaths);
-          console.log(bodyVietnam[0].recovered);
-          return bodyVietnam;
-        });
-
         bot.sendMessage({
           to: channelID,
           message: 'Current Corona Virus Statistics \n' +
