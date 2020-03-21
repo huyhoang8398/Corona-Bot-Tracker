@@ -51,7 +51,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       // Just add any case commands if you want to..
       case 'corona':
 
-        fetch(req, setting2)
+        fetch(req, settings2)
           .then(res = res.json())
           .then((json) => {
             var statsAll = {
