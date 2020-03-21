@@ -5,17 +5,8 @@ const fetch = require('node-fetch');
 
 var body = '';
 let url = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=VN";
-var req = "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php";
 let settings = { method: "Get" };
-let settings2 = {
-  method: "Get",
-};
-let headers = {
-  "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
-  'Accept': 'application/json',
-  'Content-Type': 'application/json',
-  "x-rapidapi-key": process.env.apiKey
-}
+let req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -53,25 +44,19 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         break;
       // Just add any case commands if you want to..
       case 'corona':
-
-        fetch(req, {method: 'GET', headers: headers})
-          .then(res = res.json())
-          .then((json) => {
-            var statsAll = {
-              confirmed: 0,
-              deaths: 0,
-              recovered: 0,
-              new_cases: 0,
-              new_deaths: 0
-            };
-            json.forEach(obj => {
-              statsAll.recovered += obj.recovered;
-              statsAll.confirmed += obj.confirmed;
-              statsAll.deaths += obj.deaths;
-              statsAll.new_cases += obj.new_cases;
-              statsAll.new_deaths += obj.new_deaths;
-            })
-          })
+        req.headers({
+          "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          "x-rapidapi-key": process.env.apiKey
+        });
+        req.end(function (res) {
+          if (res.error) throw new Error(res.error);
+          setTimeout(() => {
+            body = JSON.parse(res.body);
+          }, 3000);
+          return body;
+        });
 
         fetch(url, settings)
           .then(res => res.json())
@@ -114,7 +99,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     case 'bald':
       bot.sendMessage({
         to: channelID,
-        //          message: '╭∩╮( ° ͜ʖ͡°)╭∩╮ ' + '<@371660303672541197>'
         message: 'https://media.discordapp.net/attachments/538397759741362179/688128156174909568/69424511_2564724586917511_6843079252783398912_n.png?width=759&height=566'
       })
       break;
