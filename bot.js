@@ -42,7 +42,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       // Just add any case commands if you want to..
       case 'corona':
         var req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
-        const reqVN = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=VN";
+        const reqVN = unirest("GET","https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=VN");
 
         req.headers({
           "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
@@ -91,7 +91,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
         })
     // console.log(typeof (body));
-      break;
+        break;
     case 'nlag':
       bot.sendMessage({
         to: channelID,
