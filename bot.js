@@ -65,9 +65,17 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         fetch(url, settings)
           .then(res => res.json())
           .then((json) => {
-            // bodyVietnam = json;
-            // console.log(bodyVietnam.confirmed + bodyVietnam.deaths);
-            console.log(json[0].deaths);
+            var stats = {
+              confirmed: 0,
+              deaths: 0,
+              recovered: 0
+            };
+            json.forEach(obj => {
+              stats.recovered += obj.attributes.recovered;
+              stats.confirmed += obj.attributes.confirmed;
+              stats.deaths += obj.attributes.deaths;
+            });
+            console.log(stats.deaths);
           });
 
         
