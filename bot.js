@@ -66,7 +66,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           'Content-Type': 'application/json',
         });
         
-        reqVn.end(function (res) {
+        reqVN.end(function (res) {
           if (res.error) throw new Error(res.error);
           setTimeout(() => {
             bodyVietnam = JSON.parse(res.body);
