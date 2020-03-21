@@ -1,11 +1,9 @@
 const Discord = require('discord.io');
 const logger = require('winston');
 const unirest = require('unirest');
-const Request = require('request');
 
 var body = '';
 var bodyVietnam = '';
-const reqVN = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=VN";
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -44,6 +42,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       // Just add any case commands if you want to..
       case 'corona':
         var req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
+        const reqVN = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=VN";
+
         req.headers({
           "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
           'Accept': 'application/json',
@@ -61,77 +61,73 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           // console.log(typeof(res));
         });
 
-        Request({
-          url: reqVN,
-          method: 'GET',
-          json: true,
-          gzip: true,
-        }, (err, res, body) => {
-          var stats = {
-            confirmed: 0,
-            deaths: 0,
-            recovered: 0
-          };
-          body.features.forEach(obj => {
-            stats.recovered += obj.attributes.recovered;
-            stats.confirmed += obj.attributes.confirmed;
-            stats.deaths += obj.attributes.deaths;
-          });
-          bot.sendMessage({
-            to: channelID,
-            message: 'Current Corona Virus Statistics \n' +
-              ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' +
-              ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' +
-              ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' +
-              ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' +
-              ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
-              '------------------------------------' + '\n' + '\n' +
-              'Current Corona Virus Statistics in Vietnam \n' +
-              ':mask:' + ' ' + 'Confirmed: ' + stats.confirmed + '\n' +
-              ':skull:' + ' ' + 'Deaths: ' + stats.deaths + '\n' +
-              ':repeat:' + ' ' + 'Recovered: ' + stats.recovered + '\n' +
-              ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
-          })
-        })
-        // console.log(body);
-        // console.log(typeof (body));
-        break;
-      case 'nlag':
+        reqVN.headers({
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        });
+        
+        reqVn.end(function (res) {
+          setTimeout(() => {
+            bodyVietnam = JSON.parse(res.body);
+          }, 3000);
+          return bodyVietnam;
+          // console.log(res.body);
+          // console.log(typeof(res));
+        });
+
         bot.sendMessage({
           to: channelID,
-          message: '( ° ͜ʖ͡°)╭∩╮ ' + '<@343101922405777408>'
+          message: 'Current Corona Virus Statistics \n' +
+            ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' +
+            ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' +
+            ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' +
+            ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' +
+            ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
+            '------------------------------------' + '\n' + '\n' +
+            'Current Corona Virus Statistics in Vietnam \n' +
+            ':mask:' + ' ' + 'Confirmed: ' + bodyVietnam.confirmed + '\n' +
+            ':skull:' + ' ' + 'Deaths: ' + bodyVietnam.deaths + '\n' +
+            ':repeat:' + ' ' + 'Recovered: ' + bodyVietnam.recovered + '\n' +
+            ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
         })
-        break;
-      case 'bald':
-        bot.sendMessage({
-          to: channelID,
-          //          message: '╭∩╮( ° ͜ʖ͡°)╭∩╮ ' + '<@371660303672541197>'
-          message: 'https://media.discordapp.net/attachments/538397759741362179/688128156174909568/69424511_2564724586917511_6843079252783398912_n.png?width=759&height=566'
-        })
-        break;
-      case 'dota':
-        bot.sendMessage({
-          to: channelID,
-          message: 'let\'s play some dota!  ' + '@everyone' + '  ໒( ” •̀ ᗜ •́ ” )७'
-        })
-        break;
-      case 'regret':
-        bot.sendMessage({
-          to: channelID,
-          message: 'I immediately regret this decision' + ':cold_face:'
-        })
-        break;
-      case 'thanks':
-        bot.sendMessage({
-          to: channelID,
-          message: 'Thank you ' + '@everyone' + ':heart:' + ':heart:' + ':heart:'
-        })
-        break;
-      case 'phicong':
-        bot.sendMessage({
-          to: channelID,
-          message: 'stfu ' + '<@425894408714452993>' + ':mask:'
-        })
-    }
+    // console.log(typeof (body));
+      break;
+    case 'nlag':
+      bot.sendMessage({
+        to: channelID,
+        message: '( ° ͜ʖ͡°)╭∩╮ ' + '<@343101922405777408>'
+      })
+      break;
+    case 'bald':
+      bot.sendMessage({
+        to: channelID,
+        //          message: '╭∩╮( ° ͜ʖ͡°)╭∩╮ ' + '<@371660303672541197>'
+        message: 'https://media.discordapp.net/attachments/538397759741362179/688128156174909568/69424511_2564724586917511_6843079252783398912_n.png?width=759&height=566'
+      })
+      break;
+    case 'dota':
+      bot.sendMessage({
+        to: channelID,
+        message: 'let\'s play some dota!  ' + '@everyone' + '  ໒( ” •̀ ᗜ •́ ” )७'
+      })
+      break;
+    case 'regret':
+      bot.sendMessage({
+        to: channelID,
+        message: 'I immediately regret this decision' + ':cold_face:'
+      })
+      break;
+    case 'thanks':
+      bot.sendMessage({
+        to: channelID,
+        message: 'Thank you ' + '@everyone' + ':heart:' + ':heart:' + ':heart:'
+      })
+      break;
+    case 'phicong':
+      bot.sendMessage({
+        to: channelID,
+        message: 'stfu ' + '<@425894408714452993>' + ':mask:'
+      })
   }
+}
 });
