@@ -67,12 +67,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
         
         reqVn.end(function (res) {
+          if (res.error) throw new Error(res.error);
           setTimeout(() => {
             bodyVietnam = JSON.parse(res.body);
           }, 3000);
           return bodyVietnam;
-          // console.log(res.body);
-          // console.log(typeof(res));
         });
 
         bot.sendMessage({
