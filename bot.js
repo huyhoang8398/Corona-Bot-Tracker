@@ -72,9 +72,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             bodyVietnam = JSON.parse(res.body);
           }, 3000);
           console.log(typeof(bodyVietnam));
-          console.log(bodyVietnam.confirmed);
-          console.log(bodyVietnam.deaths);
-          console.log(bodyVietnam.recovered);
+          console.log(bodyVietnam[0].confirmed);
+          console.log(bodyVietnam[0].deaths);
+          console.log(bodyVietnam[0].recovered);
           return bodyVietnam;
         });
 
