@@ -70,6 +70,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           if (res.error) throw new Error(res.error);
           setTimeout(() => {
             bodyVietnam = JSON.parse(res.body);
+            console.log(bodyVietnam[0]);
+            bodyVietnam = bodyVietnam[0];
+            console.log(typeof (bodyVietnam));
           }, 3000);
           console.log(typeof(bodyVietnam));
           console.log(bodyVietnam[0].confirmed);
