@@ -65,7 +65,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         fetch(url, settings)
           .then(res => res.json())
           .then((json) => {
-            console.log(json);
+            bodyVietnam = json
+            console.log(bodyVietnam);
           });
 
         
