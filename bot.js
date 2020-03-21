@@ -71,9 +71,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
               recovered: 0
             };
             json.forEach(obj => {
-              stats.recovered += obj.attributes.recovered;
-              stats.confirmed += obj.attributes.confirmed;
-              stats.deaths += obj.attributes.deaths;
+              stats.recovered += obj.recovered;
+              stats.confirmed += obj.confirmed;
+              stats.deaths += obj.deaths;
             });
             console.log(stats.deaths);
           });
