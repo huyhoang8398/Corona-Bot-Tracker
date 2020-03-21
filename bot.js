@@ -94,7 +94,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
               ':skull:' + ' ' + 'Deaths: ' + stats.deaths + '\n' +
               ':repeat:' + ' ' + 'Recovered: ' + stats.recovered + '\n' +
               ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
-          })
+          });
           break;
       case 'nlag':
         bot.sendMessage({
