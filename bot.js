@@ -9,11 +9,13 @@ var req = "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php"
 let settings = { method: "Get" };
 let settings2 = {
   method: "Get",
+};
+let headers = {
   "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
   'Accept': 'application/json',
   'Content-Type': 'application/json',
   "x-rapidapi-key": process.env.apiKey
-};
+}
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -52,7 +54,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       // Just add any case commands if you want to..
       case 'corona':
 
-        fetch(req, settings2)
+        fetch(req, {method: 'GET', headers: headers})
           .then(res = res.json())
           .then((json) => {
             var statsAll = {
