@@ -8,6 +8,7 @@ let url = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/lat
 var req = "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php";
 let settings = { method: "Get" };
 let settings2 = {
+  method: "Get",
   "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
   'Accept': 'application/json',
   'Content-Type': 'application/json',
