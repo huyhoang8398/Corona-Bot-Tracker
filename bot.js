@@ -44,6 +44,22 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       // Just add any case commands if you want to..
       case 'corona':
         var req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
+        req.headers({
+          "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          "x-rapidapi-key": process.env.apiKey
+        });
+
+        req.end(function (res) {
+          if (res.error) throw new Error(res.error);
+          setTimeout(() => {
+            body = JSON.parse(res.body);
+          }, 3000);
+          return body;
+          // console.log(res.body);
+          // console.log(typeof(res));
+        });
 
         Request({
           url: reqVN,
@@ -60,24 +76,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             stats.recovered += obj.attributes.recovered;
             stats.confirmed += obj.attributes.confirmed;
             stats.deaths += obj.attributes.deaths;
-          });
-
-          req.headers({
-            "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            "x-rapidapi-key": process.env.apiKey
-          });
-
-          req.end(function (res) {
-            if (res.error) throw new Error(res.error);
-            setTimeout(() => {
-              body = JSON.parse(res.body);
-            }, 3000);
-            return body;
-            // console.log(res.body);
-            // console.log(typeof(res));
-          });
+          });})
           // console.log(body);
           // console.log(typeof (body));
           bot.sendMessage({
@@ -94,7 +93,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
               ':skull:' + ' ' + 'Deaths: ' + stats.deaths + '\n' +
               ':repeat:' + ' ' + 'Recovered: ' + stats.recovered + '\n' +
               ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
-          });
+          })
           break;
       case 'nlag':
         bot.sendMessage({
