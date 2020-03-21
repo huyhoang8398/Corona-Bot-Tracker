@@ -80,9 +80,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
             '------------------------------------' + '\n' + '\n' +
             'Current Corona Virus Statistics in Vietnam \n' +
-            ':mask:' + ' ' + 'Confirmed: ' + bodyVietnam.confirmed + '\n' +
-            ':skull:' + ' ' + 'Deaths: ' + bodyVietnam.deaths + '\n' +
-            ':repeat:' + ' ' + 'Recovered: ' + bodyVietnam.recovered + '\n' +
+            ':mask:' + ' ' + 'Confirmed: ' + bodyVietnam[0].confirmed + '\n' +
+            ':skull:' + ' ' + 'Deaths: ' + bodyVietnam[0].deaths + '\n' +
+            ':repeat:' + ' ' + 'Recovered: ' + bodyVietnam[0].recovered + '\n' +
             ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
         })
     // console.log(typeof (body));
