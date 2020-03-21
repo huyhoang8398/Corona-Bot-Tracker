@@ -67,7 +67,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           .then((json) => {
             // bodyVietnam = json;
             // console.log(bodyVietnam.confirmed + bodyVietnam.deaths);
-            console.log(json.deaths);
+            console.log(json[0].deaths);
           });
 
         
