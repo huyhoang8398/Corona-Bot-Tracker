@@ -1,9 +1,11 @@
 const Discord = require('discord.io');
 const logger = require('winston');
 const unirest = require('unirest');
+const Request = require('request');
 
 var body = '';
 var bodyVietnam = '';
+const reqVN = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=VN";
 
 // Configure logger settings
 logger.remove(logger.transports.Console);
@@ -43,65 +45,57 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       case 'corona':
         var req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
 
-        var reqByCountry = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/cases_by_country.php");
+        Request({
+          url: reqVN,
+          method: 'GET',
+          json: true,
+          gzip: true,
+        }, (err, res, body) => {
+          var stats = {
+            confirmed: 0,
+            deaths: 0,
+            recovered: 0
+          };
+          body.features.forEach(obj => {
+            stats.recovered += obj.attributes.recovered;
+            stats.confirmed += obj.attributes.confirmed;
+            stats.deaths += obj.attributes.deaths;
+          });
 
-        reqByCountry.headers({
-          "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          "x-rapidapi-key": process.env.apiKey
-        });
-        reqByCountry.end(function (res) {
-          if (res.error) throw new Error(res.error);
-          setTimeout(() => {
-            bodyVietnam = JSON.parse(res.body);
-            console.log(bodyVietnam.countries_stat[56]);
-            bodyVietnam = bodyVietnam.countries_stat[56];
-            console.log(typeof (bodyVietnam));
-          }, 3000);
-          return bodyVietnam;
-          // console.log(res.body);
-        });
-        // console.log(bodyVietnam);
-        // console.log(typeof (bodyVietnam));
+          req.headers({
+            "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            "x-rapidapi-key": process.env.apiKey
+          });
 
-        req.headers({
-          "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          "x-rapidapi-key": process.env.apiKey
-        });
-
-        req.end(function (res) {
-          if (res.error) throw new Error(res.error);
-          setTimeout(() => {
-            body = JSON.parse(res.body);
-          }, 3000);
-          return body;
-          // console.log(res.body);
-          // console.log(typeof(res));
-        });
-        // console.log(body);
-        // console.log(typeof (body));
-        bot.sendMessage({
-          to: channelID,
-          message: 'Current Corona Virus Statistics \n' +
-            ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' +
-            ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' +
-            ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' +
-            ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' +
-            ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
-            '------------------------------------' + '\n' + '\n' +
-            'Current Corona Virus Statistics in Vietnam \n' +
-            ':mask:' + ' ' + 'Confirmed: ' + bodyVietnam.cases + '\n' +
-            ':skull:' + ' ' + 'Deaths: ' + bodyVietnam.deaths + '\n' +
-            ':repeat:' + ' ' + 'Recovered: ' + bodyVietnam.total_recovered + '\n' +
-            ':mask:' + ' ' + 'New cases: ' + bodyVietnam.new_cases + '\n' +
-            ':skull_crossbones:' + ' ' + 'New Deaths: ' + bodyVietnam.new_deaths + '\n' +
-            ':skull_crossbones:' + ' ' + 'Serious Critical: ' + bodyVietnam.serious_critical + '\n' +
-            ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
-        })
-        break;
+          req.end(function (res) {
+            if (res.error) throw new Error(res.error);
+            setTimeout(() => {
+              body = JSON.parse(res.body);
+            }, 3000);
+            return body;
+            // console.log(res.body);
+            // console.log(typeof(res));
+          });
+          // console.log(body);
+          // console.log(typeof (body));
+          bot.sendMessage({
+            to: channelID,
+            message: 'Current Corona Virus Statistics \n' +
+              ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' +
+              ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' +
+              ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' +
+              ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' +
+              ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
+              '------------------------------------' + '\n' + '\n' +
+              'Current Corona Virus Statistics in Vietnam \n' +
+              ':mask:' + ' ' + 'Confirmed: ' + stats.confirmed + '\n' +
+              ':skull:' + ' ' + 'Deaths: ' + stats.deaths + '\n' +
+              ':repeat:' + ' ' + 'Recovered: ' + stats.recovered + '\n' +
+              ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
+          })
+          break;
       case 'nlag':
         bot.sendMessage({
           to: channelID,
