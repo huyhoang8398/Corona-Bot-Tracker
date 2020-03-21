@@ -75,10 +75,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
               stats.confirmed += obj.confirmed;
               stats.deaths += obj.deaths;
             });
-            console.log(stats.deaths);
-          });
-
-        
         bot.sendMessage({
           to: channelID,
           message: 'Current Corona Virus Statistics \n' +
@@ -94,6 +90,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             ':repeat:' + ' ' + 'Recovered: ' + bodyVietnam.recovered + '\n' +
             ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
         })
+      });
+
     // console.log(typeof (body));
         break;
     case 'nlag':
