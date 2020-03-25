@@ -4,7 +4,7 @@ const unirest = require('unirest');
 const fetch = require('node-fetch');
 
 var body = '';
-let url = "https://wuhan-coronavirus-api.laeyoung.endpoint.ainize.ai/jhu-edu/latest?iso2=VN";
+let url = "https://corona-stats.online/vn\?format\=json"
 let settings = { method: "Get" };
 let req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
 
@@ -61,16 +61,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         fetch(url, settings)
           .then(res => res.json())
           .then((json) => {
-            var stats = {
-              confirmed: 0,
-              deaths: 0,
-              recovered: 0
-            };
-            json.forEach(obj => {
-              stats.recovered += obj.recovered;
-              stats.confirmed += obj.confirmed;
-              stats.deaths += obj.deaths;
-            });
+            console.log(json);
+          }
         bot.sendMessage({
           to: channelID,
           message: 'Current Corona Virus Statistics \n' +
