@@ -4,7 +4,7 @@ const unirest = require('unirest');
 const request = require('request')
 
 var body = '';
-let url = "https://corona-stats.online/vn\?format\=json"
+let url = "https://corona-stats.online/vn"
 let req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
 
 // Configure logger settings
