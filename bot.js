@@ -1,10 +1,9 @@
 const Discord = require('discord.io');
 const logger = require('winston');
 const unirest = require('unirest');
-const fetch = require('node-fetch');
+const request = require('request');
 
 var body = '';
-var bodyVN = '';
 let url = unirest("GET", "https://corona-stats.online/vn\?format\=json");
 let req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
 
@@ -58,14 +57,15 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           return body;
         });
 
-        url.end(function (res) {
-          if (res.error) throw new Error(res.error);
-          setTimeout(() => {
-            bodyVN = JSON.parse(res.body);
-          }, 3000);
-          return bodyVN;
+        request(url, function (error, response, body) {
+          if (!error && response.statusCode == 200) {
+            console.log(body) // Show the HTML for the Google homepage. 
+          }
+          else {
+            console.log("Error "+response.statusCode)
+          }
         });
-        console.log(bodyVN); 
+
         bot.sendMessage({
           to: channelID,
           message: 'Current Corona Virus Statistics \n' +
