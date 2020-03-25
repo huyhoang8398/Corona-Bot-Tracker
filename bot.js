@@ -62,7 +62,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           .then(res => res.json())
           .then((json) => {
             console.log(json);
-          }
+          });
         bot.sendMessage({
           to: channelID,
           message: 'Current Corona Virus Statistics \n' +
