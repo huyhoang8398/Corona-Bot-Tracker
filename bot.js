@@ -6,6 +6,15 @@ const request = require('request')
 var body = '';
 let req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
 
+const options = {
+  url: 'https://corona-stats.online/vn',
+  headers: {
+    'User-Agent': 'request',
+    'format': json
+  }
+};
+
+
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
@@ -55,14 +64,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           }, 3000);
           return body;
         });
-
-        const options = {
-          url = 'https://corona-stats.online/vn',
-          headers: {
-            'User-Agent': 'request',
-            'format': json
-          }
-        };
 
         function callback(error, response, body) {
           if (!error && response.statusCode == 200) {
