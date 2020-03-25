@@ -48,7 +48,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         request({url:url, qs:propertiesObject}, function(err, response, body) {
           if(err) { console.log(err); return; }
-          let corona = JSON.parse(body);
+          var corona = JSON.parse(body);
           console.log(corona.data[0].cases);
           return corona;
         });
