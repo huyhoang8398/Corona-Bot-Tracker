@@ -4,8 +4,8 @@ const unirest = require('unirest');
 const fetch = require('node-fetch');
 
 var body = '';
-let url = "https://corona-stats.online/vn\?format\=json"
-let settings = { method: "Get" };
+var bodyVN = '';
+let url = unirest("GET", "https://corona-stats.online/vn\?format\=json");
 let req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
 
 // Configure logger settings
@@ -58,11 +58,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           return body;
         });
 
-        fetch(url, settings)
-          .then(res => res.json())
-          .then((json) => {
-            console.log(json);
-          });
+        url.end(function (res) {
+          if (res.error) throw new Error(res.error);
+          setTimeout(() =_ {
+            bodyVN = JSON.parse(res.body);
+          }, 3000);
+          return bodyVN;
+        });
+        console.log(bodyVN); 
         bot.sendMessage({
           to: channelID,
           message: 'Current Corona Virus Statistics \n' +
