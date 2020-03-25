@@ -64,8 +64,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
 
         request({url:url, qs:propertiesObject}, function(err, response, body) {
-            if(err) { console.log(err); return; }
-            console.log("Get response: " + response.statusCode);
+          if(err) { console.log(err); return; }
+          console.log(body);
         });
 
         bot.sendMessage({
