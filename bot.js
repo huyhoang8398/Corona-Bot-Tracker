@@ -57,7 +57,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         });
 
         const options = {
-          url = "https://corona-stats.online/vn",
+          url = 'https://corona-stats.online/vn',
           headers: {
             'User-Agent': 'request',
             'format': json
@@ -73,6 +73,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         }
 
         request(options, callback);
+
         bot.sendMessage({
           to: channelID,
           message: 'Current Corona Virus Statistics \n' +
