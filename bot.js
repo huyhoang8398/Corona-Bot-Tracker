@@ -60,7 +60,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
         url.end(function (res) {
           if (res.error) throw new Error(res.error);
-          setTimeout(() =_ {
+          setTimeout(() =>_ {
             bodyVN = JSON.parse(res.body);
           }, 3000);
           return bodyVN;
