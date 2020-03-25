@@ -2,17 +2,15 @@ const Discord = require('discord.io');
 const logger = require('winston');
 const unirest = require('unirest');
 const request = require('request')
+const qs = require('querystring')
+
 
 var body = '';
 let req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
 
-const options = {
-  url: 'https://corona-stats.online/vn',
-  headers: {
-    'User-Agent': 'request',
-    'format': 'json'
-  }
-};
+const url = 'https://corona-stats.online/vn';
+
+const propertiesObject = { format:'json' }; 
 
 
 // Configure logger settings
@@ -65,15 +63,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           return body;
         });
 
-        function callback(error, response, body) {
-          if (!error && response.statusCode == 200) {
-            const info = JSON.parse(body);
-            console.log(info.stargazers_count + " Stars");
-            console.log(info.forks_count + " Forks");
-          }
-        }
-
-        request(options, callback);
+        request({url:url, qs:propertiesObject}, function(err, response, body) {
+            if(err) { console.log(err); return; }
+            console.log("Get response: " + response.statusCode);
+        });
 
         bot.sendMessage({
           to: channelID,
