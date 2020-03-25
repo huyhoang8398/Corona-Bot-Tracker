@@ -1,7 +1,7 @@
 const Discord = require('discord.io');
 const logger = require('winston');
 const unirest = require('unirest');
-const https = require('https');
+const request = request('request')
 
 var body = '';
 let url = "https://corona-stats.online/vn\?format\=json"
