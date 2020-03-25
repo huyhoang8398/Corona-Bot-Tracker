@@ -1,7 +1,7 @@
 const Discord = require('discord.io');
 const logger = require('winston');
 const unirest = require('unirest');
-const request = require('request');
+const https = require('https');
 
 var body = '';
 let url = unirest("GET", "https://corona-stats.online/vn\?format\=json");
@@ -57,13 +57,21 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           return body;
         });
 
-        request(url, function (error, response, body) {
-          if (!error && response.statusCode == 200) {
-            console.log(body) // Show the HTML for the Google homepage. 
-          }
-          else {
-            console.log("Error "+response.statusCode)
-          }
+        https.get(url, (resp) => {
+          let data = '';
+
+          // A chunk of data has been recieved.
+          resp.on('data', (chunk) => {
+            data += chunk;
+          });
+
+          // The whole response has been received. Print out the result.
+          resp.on('end', () => {
+            console.log(JSON.parse(data).explanation);
+          });
+
+        }).on("error", (err) => {
+          console.log("Error: " + err.message);
         });
 
         bot.sendMessage({
@@ -75,49 +83,50 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' +
             ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
             '------------------------------------' + '\n' + '\n' +
-            'Current Corona Virus Statistics in Vietnam \n' 
-            //':mask:' + ' ' + 'Confirmed: ' + stats.confirmed + '\n' +
-            //':skull:' + ' ' + 'Deaths: ' + stats.deaths + '\n' +
-            //':repeat:' + ' ' + 'Recovered: ' + stats.recovered + '\n' +
-            //':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
+            'Current Corona Virus Statistics in Vietnam \n'
+          //':mask:' + ' ' + 'Confirmed: ' + stats.confirmed + '\n' +
+          //':skull:' + ' ' + 'Deaths: ' + stats.deaths + '\n' +
+          //':repeat:' + ' ' + 'Recovered: ' + stats.recovered + '\n' +
+          //':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
         })
-    // console.log(typeof (body));
+        // console.log(typeof (body));
         break;
-    case 'nlag':
-      bot.sendMessage({
-        to: channelID,
-        message: '( ° ͜ʖ͡°)╭∩╮ ' + '<@343101922405777408>'
-      })
-      break;
-    case 'bald':
-      bot.sendMessage({
-        to: channelID,
-        message: 'https://media.discordapp.net/attachments/538397759741362179/688128156174909568/69424511_2564724586917511_6843079252783398912_n.png?width=759&height=566'
-      })
-      break;
-    case 'dota':
-      bot.sendMessage({
-        to: channelID,
-        message: 'let\'s play some dota!  ' + '@everyone' + '  ໒( ” •̀ ᗜ •́ ” )७'
-      })
-      break;
-    case 'regret':
-      bot.sendMessage({
-        to: channelID,
-        message: 'I immediately regret this decision' + ':cold_face:'
-      })
-      break;
-    case 'thanks':
-      bot.sendMessage({
-        to: channelID,
-        message: 'Thank you ' + '@everyone' + ':heart:' + ':heart:' + ':heart:'
-      })
-      break;
-    case 'phicong':
-      bot.sendMessage({
-        to: channelID,
-        message: 'stfu ' + '<@425894408714452993>' + ':mask:'
-      })
+
+      case 'nlag':
+        bot.sendMessage({
+          to: channelID,
+          message: '( ° ͜ʖ͡°)╭∩╮ ' + '<@343101922405777408>'
+        })
+        break;
+      case 'bald':
+        bot.sendMessage({
+          to: channelID,
+          message: 'https://media.discordapp.net/attachments/538397759741362179/688128156174909568/69424511_2564724586917511_6843079252783398912_n.png?width=759&height=566'
+        })
+        break;
+      case 'dota':
+        bot.sendMessage({
+          to: channelID,
+          message: 'let\'s play some dota!  ' + '@everyone' + '  ໒( ” •̀ ᗜ •́ ” )७'
+        })
+        break;
+      case 'regret':
+        bot.sendMessage({
+          to: channelID,
+          message: 'I immediately regret this decision' + ':cold_face:'
+        })
+        break;
+      case 'thanks':
+        bot.sendMessage({
+          to: channelID,
+          message: 'Thank you ' + '@everyone' + ':heart:' + ':heart:' + ':heart:'
+        })
+        break;
+      case 'phicong':
+        bot.sendMessage({
+          to: channelID,
+          message: 'stfu ' + '<@425894408714452993>' + ':mask:'
+        })
+    }
   }
-}
 });
