@@ -81,8 +81,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             ':repeat:' + ' ' + 'Recovered: ' + stats.recovered + '\n' +
             ':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
         })
-      });
-
     // console.log(typeof (body));
         break;
     case 'nlag':
