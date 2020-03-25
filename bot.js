@@ -4,7 +4,6 @@ const unirest = require('unirest');
 const request = require('request')
 
 var body = '';
-let url = "https://corona-stats.online/vn"
 let req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
 
 // Configure logger settings
@@ -34,14 +33,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
     args = args.splice(1);
     switch (cmd) {
-      // !ping
+        // !ping
       case 'ping':
         bot.sendMessage({
           to: channelID,
           message: 'Pong!'
         });
         break;
-      // Just add any case commands if you want to..
+        // Just add any case commands if you want to..
       case 'corona':
         req.headers({
           "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
@@ -57,22 +56,33 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           return body;
         });
 
-        request(url, { json: true }, (err, res, body) => {
-            if (err) { return console.log(err); }
-            console.log(body.url);
-            console.log(body.explanation);
-        });
+        const options = {
+          url = "https://corona-stats.online/vn",
+          headers: {
+            'User-Agent': 'request',
+            'format': json
+          }
+        };
 
+        function callback(error, response, body) {
+          if (!error && response.statusCode == 200) {
+            const info = JSON.parse(body);
+            console.log(info.stargazers_count + " Stars");
+            console.log(info.forks_count + " Forks");
+          }
+        }
+
+        request(options, callback);
         bot.sendMessage({
           to: channelID,
           message: 'Current Corona Virus Statistics \n' +
-            ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' +
-            ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' +
-            ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' +
-            ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' +
-            ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
-            '------------------------------------' + '\n' + '\n' +
-            'Current Corona Virus Statistics in Vietnam \n'
+          ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' +
+          ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' +
+          ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' +
+          ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' +
+          ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
+          '------------------------------------' + '\n' + '\n' +
+          'Current Corona Virus Statistics in Vietnam \n'
           //':mask:' + ' ' + 'Confirmed: ' + stats.confirmed + '\n' +
           //':skull:' + ' ' + 'Deaths: ' + stats.deaths + '\n' +
           //':repeat:' + ' ' + 'Recovered: ' + stats.recovered + '\n' +
