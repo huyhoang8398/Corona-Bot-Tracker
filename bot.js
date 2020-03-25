@@ -1,6 +1,5 @@
 const Discord = require('discord.io');
 const logger = require('winston');
-const unirest = require('unirest');
 const request = require('request')
 const qs = require('querystring')
 
