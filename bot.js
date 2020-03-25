@@ -5,11 +5,7 @@ const request = require('request')
 const qs = require('querystring')
 
 
-var body = '';
-let req = unirest("GET", "https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php");
-
 const url = 'https://corona-stats.online/vn';
-
 const propertiesObject = { format:'json' }; 
 
 
@@ -49,36 +45,24 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         break;
         // Just add any case commands if you want to..
       case 'corona':
-        req.headers({
-          "x-rapidapi-host": "coronavirus-monitor.p.rapidapi.com",
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          "x-rapidapi-key": process.env.apiKey
-        });
-        req.end(function (res) {
-          if (res.error) throw new Error(res.error);
-          setTimeout(() => {
-            body = JSON.parse(res.body);
-          }, 3000);
-          return body;
-        });
 
         request({url:url, qs:propertiesObject}, function(err, response, body) {
           if(err) { console.log(err); return; }
           let corona = JSON.parse(body);
           console.log(corona.data[0].cases);
+          return corona;
         });
 
         bot.sendMessage({
           to: channelID,
-          message: 'Current Corona Virus Statistics \n' +
-          ':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' +
-          ':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' +
-          ':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' +
-          ':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' +
-          ':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
-          '------------------------------------' + '\n' + '\n' +
-          'Current Corona Virus Statistics in Vietnam \n'
+          message: 'Current Corona Virus Statistics \n' + corona.data[0].cases
+          //':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' +
+          //':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' +
+          //':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' +
+          //':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' +
+          //':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
+          //'------------------------------------' + '\n' + '\n' +
+          //'Current Corona Virus Statistics in Vietnam \n'
           //':mask:' + ' ' + 'Confirmed: ' + stats.confirmed + '\n' +
           //':skull:' + ' ' + 'Deaths: ' + stats.deaths + '\n' +
           //':repeat:' + ' ' + 'Recovered: ' + stats.recovered + '\n' +
