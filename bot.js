@@ -45,30 +45,26 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         break;
         // Just add any case commands if you want to..
       case 'corona':
-
         request({url:url, qs:propertiesObject}, function(err, response, body) {
           if(err) { console.log(err); return; }
           var corona = JSON.parse(body);
           console.log(corona.data[0].cases);
-          return corona;
+          bot.sendMessage({
+            to: channelID,
+            message: 'Current Corona Virus Statistics \n' + corona.data[0].cases
+            //':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' +
+            //':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' +
+            //':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' +
+            //':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' +
+            //':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
+            //'------------------------------------' + '\n' + '\n' +
+            //'Current Corona Virus Statistics in Vietnam \n'
+            //':mask:' + ' ' + 'Confirmed: ' + stats.confirmed + '\n' +
+            //':skull:' + ' ' + 'Deaths: ' + stats.deaths + '\n' +
+            //':repeat:' + ' ' + 'Recovered: ' + stats.recovered + '\n' +
+            //':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
+          })         
         });
-
-        bot.sendMessage({
-          to: channelID,
-          message: 'Current Corona Virus Statistics \n' + corona.data[0].cases
-          //':mask:' + ' ' + 'Confirmed: ' + body.total_cases + '\n' +
-          //':skull:' + ' ' + 'Deaths: ' + body.total_deaths + '\n' +
-          //':repeat:' + ' ' + 'Recovered: ' + body.total_recovered + '\n' +
-          //':mask:' + ' ' + 'New cases: ' + body.new_cases + '\n' +
-          //':skull_crossbones:' + ' ' + 'New Deaths: ' + body.new_deaths + '\n' + '\n' +
-          //'------------------------------------' + '\n' + '\n' +
-          //'Current Corona Virus Statistics in Vietnam \n'
-          //':mask:' + ' ' + 'Confirmed: ' + stats.confirmed + '\n' +
-          //':skull:' + ' ' + 'Deaths: ' + stats.deaths + '\n' +
-          //':repeat:' + ' ' + 'Recovered: ' + stats.recovered + '\n' +
-          //':date:' + ' ' + 'Statistic taken at: ' + body.statistic_taken_at
-        })
-        // console.log(typeof (body));
         break;
 
       case 'nlag':
