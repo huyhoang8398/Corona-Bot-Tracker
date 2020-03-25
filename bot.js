@@ -10,7 +10,7 @@ const options = {
   url: 'https://corona-stats.online/vn',
   headers: {
     'User-Agent': 'request',
-    'format': json
+    'format': 'json'
   }
 };
 
